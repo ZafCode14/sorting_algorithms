@@ -7,7 +7,10 @@
 
 /**
  * enum kind_e - Kind of card
- *
+ * @SPADE: spades suit
+ * @HEART: hearts suit
+ * @CLUB: clubs suit
+ * @DIAMOND: diamonds suit
  */
 typedef enum kind_e
 {
