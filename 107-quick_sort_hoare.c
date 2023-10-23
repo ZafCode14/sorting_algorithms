@@ -26,9 +26,8 @@ void swap(int *a, int *b)
  */
 int hoare_partition(int *array, int low, int high, size_t size)
 {
-	int pivot = array[low];
-	int i = low - 1;
-	int j = high + 1;
+	int pivot = array[high];
+	int i = low - 1, j = high + 1;
 
 	while (1)
 	{
@@ -40,9 +39,8 @@ int hoare_partition(int *array, int low, int high, size_t size)
 			j--;
 		} while (array[j] > pivot);
 
-		if (i >= j)
+		if (j < i)
 			return (j);
-
 		if (array[i] > array[j])
 		{
 			swap(&array[i], &array[j]);
@@ -61,13 +59,13 @@ int hoare_partition(int *array, int low, int high, size_t size)
  */
 void quicksort(int *array, int low, int high, size_t size)
 {
-	int pivot_index;
+	int pivot;
 
 	if (low < high)
 	{
-		pivot_index = hoare_partition(array, low, high, size);
-		quicksort(array, low, pivot_index - 1, size);
-		quicksort(array, pivot_index + 1, high, size);
+		pivot = hoare_partition(array, low, high, size);
+		quicksort(array, low, pivot, size);
+		quicksort(array, pivot + 1, high, size);
 	}
 }
 
