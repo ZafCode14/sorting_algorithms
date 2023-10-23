@@ -1,39 +1,51 @@
 #include "sort.h"
 
 /**
- * hoare_partition - Partiotions array using Hoare sheme.
- * @array: array to be partitioned.
- * @low: low index of partition.
- * @high: high index of partition.
- * @size: size of array.
+ * swap - Swaps two integers in an array.
+ * @a: Pointer to the first integer.
+ * @b: Pointer to the second integer.
  *
- * Return: Index of pivot element.
+ * Return: void
  */
-size_t hoare_partition(int *array, size_t low, size_t high, size_t size)
+void swap(int *a, int *b)
 {
-	size_t l = low - 1, h = high + 1;
-	int pvt = array[h];
+	int temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+/**
+ * hoare_partition - Partitions an array using the Hoare partition scheme.
+ * @array: The array to be partitioned.
+ * @low: The starting index of the partition.
+ * @high: The ending index of the partition.
+ * @size: The ending index of the partition.
+ *
+ * Return: The index of the pivot element after partitioning.
+ */
+int hoare_partition(int *array, int low, int high, size_t size)
+{
+	int pivot = array[low];
+	int i = low - 1;
+	int j = high + 1;
 
 	while (1)
 	{
 		do {
-			l++;
-		} while (array[l] < pvt);
+			i++;
+		} while (array[i] < pivot);
 
 		do {
-			h--;
-		} while (array[h] > pvt);
+			j--;
+		} while (array[j] > pivot);
 
-		if (l < h)
-		{
-			int tmp = array[l];
+		if (i >= j)
+			return (j);
 
-			array[l] = array[h];
-			array[h] = tmp;
-			print_array(array, size);
-		}
-		else
-			return (h);
+		swap(&array[i], &array[j]);
+		print_array(array, size);
 	}
 }
 
@@ -60,7 +72,7 @@ void quicksort_hoare(int *array, size_t low, size_t high, size_t size)
 
 
 /**
- * quick__sort_hoare - sorts array of int using quick sort algo.
+ * quick_sort_hoare - sorts array of int using quick sort algo.
  * @array: array to be sorted.
  * @size: size of array.
  *
