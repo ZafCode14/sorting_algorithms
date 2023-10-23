@@ -27,7 +27,8 @@ void swap(int *a, int *b)
 int hoare_partition(int *array, int low, int high, size_t size)
 {
 	int pivot = array[high];
-	int i = low - 1, j = high + 1;
+	int i = low - 1;
+	int j = high + 1;
 
 	while (1)
 	{
@@ -39,16 +40,14 @@ int hoare_partition(int *array, int low, int high, size_t size)
 			j--;
 		} while (array[j] > pivot);
 
-		if (j < i)
+		if (i > j)
 			return (j);
 
-		if (array[i] > array[j])
-		{
-			swap(&array[i], &array[j]);
-			print_array(array, size);
-		}
+		swap(&array[i], &array[j]);
+		print_array(array, size);
 	}
 }
+
 /**
  * quicksort - Sorts an array of integers using the Quick sort algorithm.
  * @array: The array to be sorted.
