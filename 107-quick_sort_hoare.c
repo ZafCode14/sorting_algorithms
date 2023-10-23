@@ -15,13 +15,12 @@ void swap(int *a, int *b)
 	*a = *b;
 	*b = temp;
 }
-
 /**
  * hoare_partition - Partitions an array using the Hoare partition scheme.
  * @array: The array to be partitioned.
  * @low: The starting index of the partition.
  * @high: The ending index of the partition.
- * @size: The ending index of the partition.
+ * @size: The size of the array
  *
  * Return: The index of the pivot element after partitioning.
  */
@@ -51,43 +50,39 @@ int hoare_partition(int *array, int low, int high, size_t size)
 		}
 	}
 }
-
 /**
- * quicksort_hoare - sorts array of int using Quick sort.
- * @array: array to be sorted.
- * @low:  low index of array.
- * @high: high index of array.
- * @size: size of array.
+ * quicksort - Sorts an array of integers using the Quick sort algorithm.
+ * @array: The array to be sorted.
+ * @low: The starting index of the partition.
+ * @high: The ending index of the partition.
+ * @size: The size of the array.
  *
- * Return: void.
+ * Return: void
  */
-void quicksort_hoare(int *array, size_t low, size_t high, size_t size)
+void quicksort(int *array, int low, int high, size_t size)
 {
+	int pivot_index;
+
 	if (low < high)
 	{
-		size_t pvt = hoare_partition(array, low, high, size);
-
-		if (pvt != 0)
-			quicksort_hoare(array, low, pvt, size);
-		quicksort_hoare(array, pvt + 1, high, size);
+		pivot_index = hoare_partition(array, low, high, size);
+		quicksort(array, low, pivot_index - 1, size);
+		quicksort(array, pivot_index + 1, high, size);
 	}
 }
 
-
 /**
- * quick_sort_hoare - sorts array of int using quick sort algo.
- * @array: array to be sorted.
- * @size: size of array.
+ * quick_sort_hoare - Sorts an array of integers
+ *					in ascending order using Quick sort.
+ * @array: The array to be sorted.
+ * @size: The size of the array.
  *
- * Description: This function sorts an array of integers in ascending order by
- * selecting a pivot element and rearranging the other elements to ensure that
- * all elements smaller than the pivot are on the left, and all elements
- * greater are on the right.
+ * Return: void
  */
 void quick_sort_hoare(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
 
-	quicksort_hoare(array, 0, size - 1, size);
+	quicksort(array, 0, size - 1, size);
 }
